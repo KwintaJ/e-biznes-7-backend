@@ -53,11 +53,11 @@ export const completeTask = (req, res) => {
 }
 
 export const updateTask = (req, res) => {
-	const taskID = req.query.id
-	const q = "UPDATE tasks SET name = ?, description = ? WHERE id = ?"
-	const values = [req.body.name, req.body.description]
-	db.query(q, [...values, taskID], (err, data) => {
-		if (err) return res.json(err)
-		return res.json("Task updated successfully")
-	})
-}
+	const { id, name, description } = req.body; 
+
+	const q = "UPDATE tasks SET name = ?, description = ? WHERE id = ?";
+	db.query(q, [name, description, id], (err, data) => {
+		if (err) return res.json(err);
+		return res.json("Task updated successfully");
+	});
+};
