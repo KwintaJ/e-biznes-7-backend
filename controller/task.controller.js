@@ -28,7 +28,7 @@ export const addTask = (req, res) => {
 }
 
 export const deleteTask = (req, res) => {
-	const taskID = req.params.id
+	const taskID = req.query.id
 	const q = "DELETE FROM tasks WHERE id = ?"
 	db.query(q, [taskID], (err, data) => {
 		if (err) return res.json(err)
@@ -37,7 +37,7 @@ export const deleteTask = (req, res) => {
 }
 
 export const completeTask = (req, res) => {
-	const taskID = req.params.id
+	const taskID = req.query.id
 	const getStatusQuery = "SELECT status FROM tasks WHERE id = ?"
 	db.query(getStatusQuery, [taskID], (err, data) => {
 		if (err) return res.json(err)
@@ -53,7 +53,7 @@ export const completeTask = (req, res) => {
 }
 
 export const updateTask = (req, res) => {
-	const taskID = req.params.id
+	const taskID = req.query.id
 	const q = "UPDATE tasks SET name = ?, description = ? WHERE id = ?"
 	const values = [req.body.name, req.body.description]
 	db.query(q, [...values, taskID], (err, data) => {
